@@ -1,31 +1,39 @@
 <html lang="en">
-  <head>
-    <title>Beyond message board</title>
-    <style>
-      .author,
-      .eom {
-        color: grey;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>Beyond message board</h1>
-    </header>
-    <main>
-      <ol>
-      {% for message in messages %}
-        <li class="message">
-          <header class="author">
-            Posted by {{ message.author }} at
-            <time datetime="{{ message.date }}">{{ message.date }}</time>
-          </header>
-          <p>{{ message.text }}</p>
-        </li>
-      {% endfor %}
-      </ol>
-      <p class="eom">(End of messages)</p>
-    </main>
-  </body>
-</html>
 
+<head>
+  <title>Beyond message board</title>
+  <style>
+    .author,
+    .eom {
+      color: grey;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Beyond message board</h1>
+  </header>
+  <main>
+    <form method="POST">
+      <h2>New Message</h2>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Post" />
+    </form>
+    <ol>
+      {% for message in messages %}
+      <li class="message">
+        <header class="author">
+          Posted by {{ message.author }} at
+          <time datetime="{{ message.date }}">{{ message.date }}</time>
+        </header>
+        <p>{{ message.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+    <p class="eom">(End of messages)</p>
+  </main>
+</body>
+
+</html>
